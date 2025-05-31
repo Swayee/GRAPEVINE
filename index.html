@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grapevine Conference: Your today, tomorrow.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --grape-purple-accent: #5D3A9B;
+            --primary-bg: #FFFFFF;
+            --secondary-bg: #F4F6F8;
+            --text-dark: #1A202C;
+            --text-light: #FFFFFF;
+            --text-medium: #4A5568;
+            --border-light: #E2E8F0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Open Sans', sans-serif; color: var(--text-dark); background-color: var(--primary-bg); line-height: 1.7; font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: hidden; }
+        .container { width: 90%; max-width: 1140px; margin: 0 auto; }
+
+        .main-nav { position: fixed; top: 0; left: 0; width: 100%; background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 20px 0; z-index: 1000; border-bottom: 1px solid var(--border-light); transition: background-color 0.3s ease, box-shadow 0.3s ease; }
+        .main-nav .container { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-family: 'Montserrat', sans-serif; font-size: 1.6em; font-weight: 800; color: var(--text-dark); text-decoration: none; letter-spacing: -0.5px; }
+        .nav-logo span { color: var(--grape-purple-accent); }
+        .nav-links ul { list-style: none; display: flex; }
+        .nav-links ul li { margin-left: 35px; }
+        .nav-links ul li a { font-family: 'Montserrat', sans-serif; text-decoration: none; color: var(--text-medium); font-weight: 600; font-size: 0.9em; padding-bottom: 8px; transition: color 0.3s ease, border-bottom-color 0.3s ease; border-bottom: 3px solid transparent; letter-spacing: 0.5px; }
+        .nav-links ul li a:hover, .nav-links ul li a.active { color: var(--grape-purple-accent); border-bottom-color: var(--grape-purple-accent); }
+
+        .hero { height: 100vh; min-height: 650px; background-image: linear-gradient(rgba(20, 20, 30, 0.45), rgba(0, 0, 0, 0.55)), url('https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; position: relative; color: var(--text-light); }
+        .hero-content { text-align: center; width: 90%; max-width: 800px; }
+        .hero-content h1 { font-family: 'Montserrat', sans-serif; font-size: clamp(2.5em, 6vw, 4.5em); font-weight: 900; line-height: 1.1; margin-bottom: 25px; letter-spacing: -1.5px; text-transform: uppercase; }
+        .hero-content .slogan { font-family: 'Open Sans', sans-serif; font-size: clamp(1.1em, 2.5vw, 1.4em); font-weight: 400; margin-bottom: 45px; opacity: 0.95; }
+        .scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); font-family: 'Montserrat', sans-serif; font-size: 0.75em; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.6); display: flex; flex-direction: column; align-items: center; opacity: 0.8; }
+        .scroll-indicator span { margin-bottom: 10px; }
+        .scroll-indicator::after { content: ''; width: 2px; height: 50px; background-color: rgba(255,255,255,0.4); display: block; animation: scrollPulse 2s infinite ease-in-out; }
+        @keyframes scrollPulse { 0% { transform: scaleY(1); opacity: 0.8;} 50% { transform: scaleY(0.6); opacity: 0.5;} 100% { transform: scaleY(1); opacity: 0.8;} }
+
+        .content-section { padding: 120px 0; }
+        #about.content-section { background-color: var(--secondary-bg); }
+
+        .section-title { font-family: 'Montserrat', sans-serif; font-size: clamp(2.2em, 5vw, 3em); font-weight: 800; color: var(--text-dark); margin-bottom: 25px; text-align: center; }
+        .section-title.center-aligned::after { content: ''; display: block; width: 70px; height: 4px; background-color: var(--grape-purple-accent); margin: 20px auto 0; border-radius: 2px; transition: width 0.3s ease-in-out; }
+        .section-title.center-aligned:hover::after { width: 100px; }
+        .section-subtitle { font-family: 'Open Sans', sans-serif; font-size: 1.15em; color: var(--text-medium); text-align: center; margin-bottom: 70px; max-width: 750px; margin-left: auto; margin-right: auto; line-height: 1.8; }
+
+        #about .mission-statement { font-family: 'Montserrat', sans-serif; font-size: 1.5em; font-weight: 600; line-height: 1.6; color: var(--text-dark); text-align: center; padding: 50px 40px; background-color: var(--primary-bg); border-left: 6px solid var(--grape-purple-accent); margin: 60px auto; max-width: 800px; box-shadow: 0 8px 30px rgba(0,0,0,0.07); border-radius: 4px; }
+
+        .experience-item { display: flex; align-items: center; gap: 50px; margin-bottom: 90px; }
+        .experience-item:last-child { margin-bottom: 0; }
+        .experience-item .text-content { flex: 1.2; }
+        .experience-item .image-content { flex: 1; height: 380px; background-size: cover; background-position: center; border-radius: 12px; box-shadow: 0 12px 35px rgba(0,0,0,0.12); overflow: hidden; transition: transform 0.4s ease-out; }
+        .experience-item:hover .image-content { transform: scale(1.03); }
+        .experience-item:nth-child(even) { flex-direction: row-reverse; }
+        .experience-item .icon-wrapper { color: var(--grape-purple-accent); margin-bottom: 15px; display: inline-block; }
+        .experience-item .icon-wrapper svg { width: 36px; height: 36px; }
+        .experience-item h3 { font-family: 'Montserrat', sans-serif; font-size: 1.9em; font-weight: 700; margin-bottom: 15px; position: relative; padding-bottom: 10px; }
+        .experience-item h3::after { content: ''; display: block; width: 50px; height: 3px; background-color: var(--grape-purple-accent); position: absolute; bottom: 0; left: 0; border-radius: 1px; }
+        .experience-item:nth-child(even) h3::after { left: auto; right:0; }
+        .experience-item p { font-size: 1.05em; color: var(--text-medium); }
+
+        /* --- Why Attend Section (DEBUGGED) --- */
+        #why-attend.content-section {
+            position: relative;
+            background-image:
+                linear-gradient(rgba(244, 246, 248, 0.92), rgba(244, 246, 248, 0.97)),
+                url('https://picsum.photos/seed/subtlepattern/1920/1080?blur=2&grayscale&brightness=110');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-dark);
+            padding-bottom: 80px; /* Extra space for button if list is long */
+        }
+        #why-attend .section-title, #why-attend .section-subtitle {
+            color: var(--text-dark);
+            position: relative;
+            z-index: 1;
+        }
+        #why-attend .section-title.center-aligned::after {
+            background-color: var(--grape-purple-accent);
+        }
+        #why-attend ul.why-attend-list {
+            list-style: none;
+            padding-left: 0;
+            max-width: 800px;
+            margin: 40px auto 60px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        #why-attend ul.why-attend-list li {
+            font-size: 1.05em;
+            padding: 25px;
+            position: relative;
+            background-color: var(--primary-bg); /* Solid white for testing */
+            border: 1px solid var(--border-light); /* Border for visibility */
+            border-radius: 8px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            min-height: 50px; /* Ensure some height */
+            /* UNCOMMENT animation override for hard debug if needed */
+            /* opacity: 1 !important;  */
+            /* transform: none !important; */
+        }
+        #why-attend ul.why-attend-list li:hover {
+            transform: translateY(-4px); /* !important removed from here too */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        #why-attend ul.why-attend-list li::before { content: ''; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%235D3A9B'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-size: 20px 20px; width: 20px; height: 20px; position: absolute; left: 25px; top: 27px; }
+        #why-attend ul.why-attend-list li span { display: block; margin-left: 35px; color: var(--text-dark); }
+
+        .cta-button { display: inline-block; background-color: var(--grape-purple-accent); color: var(--text-light) !important; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.05em; padding: 16px 40px; text-decoration: none; border-radius: 50px; transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; box-shadow: 0 5px 20px rgba(93, 58, 155, 0.3); text-transform: uppercase; letter-spacing: 1px; }
+        .cta-button:hover { background-color: #4a2f7c; transform: translateY(-4px) scale(1.02); box-shadow: 0 8px 25px rgba(93, 58, 155, 0.4); }
+
+        #register { background-color: var(--grape-purple-accent); color: var(--text-light); }
+        #register .section-title, #register .section-subtitle { color: var(--text-light); }
+        #register .section-title.center-aligned::after { background-color: var(--text-light); }
+        #register form { display: flex; justify-content: center; align-items: center; gap: 15px; max-width: 650px; margin: 50px auto 0 auto; }
+        #register input[type="email"] { flex-grow: 1; padding: 18px 25px; border-radius: 50px; border: 2px solid rgba(255,255,255,0.5); background-color: rgba(255,255,255,0.15); color: var(--text-light); font-family: 'Open Sans', sans-serif; font-size: 1em; transition: border-color 0.3s ease, background-color 0.3s ease; }
+        #register input[type="email"]::placeholder { color: rgba(255,255,255,0.7); }
+        #register input[type="email"]:focus { outline: none; border-color: var(--text-light); background-color: rgba(255,255,255,0.2); }
+        #register button.cta-button { background-color: var(--text-light); color: var(--grape-purple-accent) !important; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        #register button.cta-button:hover { background-color: #f0f0f0; box-shadow: 0 8px 20px rgba(0,0,0,0.15); transform: translateY(-3px) scale(1.02); }
+
+        footer { background-color: var(--text-dark); color: #A0A0A0; text-align: center; padding: 50px 0; font-size: 0.9em; }
+        footer p { margin-bottom: 8px; }
+        footer .slogan-footer { font-family: 'Montserrat', sans-serif; font-style: italic; opacity: 0.8; }
+
+        .animate-on-scroll { opacity: 0; transition-property: opacity, transform; transition-duration: 0.7s; transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0) translateX(0) scale(1); }
+        .aos-fade-up { transform: translateY(40px); }
+        .aos-fade-down { transform: translateY(-40px); }
+        .aos-fade-left { transform: translateX(40px); }
+        .aos-fade-right { transform: translateX(-40px); }
+        .aos-zoom-in { transform: scale(0.9); }
+
+        @media (max-width: 992px) { #why-attend ul { grid-template-columns: 1fr; } .experience-item { gap: 40px; } }
+        @media (max-width: 768px) {
+            .main-nav .container { flex-direction: column; align-items: center; }
+            .nav-logo { margin-bottom: 20px; }
+            .nav-links ul { justify-content: center; flex-wrap: wrap; }
+            .nav-links ul li { margin: 0 10px 15px 10px; }
+            .scroll-indicator { bottom: 25px; }
+            .content-section { padding: 80px 0; }
+            .section-subtitle { font-size: 1em; margin-bottom: 50px; }
+            .experience-item { flex-direction: column !important; text-align: center; }
+            .experience-item h3::after { left: 50%; transform: translateX(-50%);}
+            .experience-item .image-content { width: 100%; max-width: 400px; height: 280px; margin-bottom: 30px; }
+            .experience-item h3 { text-align: center; font-size: 1.7em; }
+            .experience-item .icon-wrapper { margin-left: auto; margin-right: auto; display: block;}
+            #register form { flex-direction: column; }
+            #register input[type="email"] { width: 100%; margin-bottom: 15px; text-align: center; }
+            #why-attend ul.why-attend-list { grid-template-columns: 1fr; max-width: 90%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="main-nav">
+        <div class="container">
+            <a href="#home" class="nav-logo">GRAPE<span>VINE</span></a>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="#about" class="active">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#why-attend">Why Attend?</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="animate-on-scroll aos-fade-up" data-aos-delay="0.1s">Cultivate Your Future at Grapevine</h1>
+            <p class="slogan animate-on-scroll aos-fade-up" data-aos-delay="0.2s">Your today, tomorrow. Discover your path to post-secondary success.</p>
+            <a href="#about" class="cta-button animate-on-scroll aos-fade-up" data-aos-delay="0.3s">Explore the Conference</a>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+        </div>
+    </header>
+
+    <main>
+        <section id="about" class="content-section">
+            <div class="container">
+                <h2 class="section-title center-aligned animate-on-scroll aos-fade-up">Welcome to Grapevine</h2>
+                <p class="section-subtitle animate-on-scroll aos-fade-up" data-aos-delay="0.1s">
+                    The Grapevine Conference connects high school students with the insights, tools, and networks
+                    to confidently navigate their journey to university and beyond.
+                </p>
+                <p style="text-align: center; max-width: 850px; margin: 0 auto 50px auto; font-size: 1.1em; line-height: 1.9;" class="animate-on-scroll aos-fade-up" data-aos-delay="0.2s">
+                    Born from the idea that knowledge should spread to empower, Grapevine aims to be your central hub for post-secondary preparation. We're more than just a conference; we're a launching pad for your ambitions, helping you understand university life, build strong applications, and develop crucial skills for the future.
+                </p>
+                <div class="mission-statement animate-on-scroll aos-zoom-in" data-aos-delay="0.3s">
+                    <p><strong>Our Mission:</strong> Empowering youths with the tools, perspectives, and support needed to navigate their post-secondary paths and contribute positively to their communities.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="content-section">
+            <div class="container">
+                <h2 class="section-title center-aligned animate-on-scroll aos-fade-up">The Grapevine Experience</h2>
+                <p class="section-subtitle animate-on-scroll aos-fade-up" data-aos-delay="0.1s">
+                    Dive into interactive workshops, insightful talks, and direct connections designed to equip you for success.
+                </p>
+                <div class="experience-item">
+                    <div class="image-content animate-on-scroll aos-fade-right" style="background-image: url('https://picsum.photos/seed/studentscollab/800/600');" data-aos-delay="0.1s"></div>
+                    <div class="text-content animate-on-scroll aos-fade-left" data-aos-delay="0.2s">
+                        <div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.306 3 11.75c0 4.556 4.03 8.25 9 8.25zM7.5 9.75c0-.414.336-.75.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zm0 4.5c0-.414.336-.75.75-.75h4.5a.75.75 0 010 1.5h-4.5a.75.75 0 01-.75-.75z" /></svg></div>
+                        <h3>Direct University Insights</h3>
+                        <p>Engage in candid conversations with current university students. Get authentic answers about campus life, academic challenges, program choices, and social experiences, straight from those living it.</p>
+                    </div>
+                </div>
+                <div class="experience-item">
+                    <div class="image-content animate-on-scroll aos-fade-left" style="background-image: url('https://picsum.photos/seed/workshopinteractive/800/600');" data-aos-delay="0.1s"></div>
+                    <div class="text-content animate-on-scroll aos-fade-right" data-aos-delay="0.2s">
+                         <div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" /></svg></div>
+                        <h3>Application Building Workshops</h3>
+                        <p>Participate in dynamic, hands-on workshops. Learn how to craft compelling personal statements, build impactful resumes, and navigate the university application process with confidence and clarity.</p>
+                    </div>
+                </div>
+                <div class="experience-item">
+                     <div class="image-content animate-on-scroll aos-fade-right" style="background-image: url('https://picsum.photos/seed/skillsfuture/800/600');" data-aos-delay="0.1s"></div>
+                    <div class="text-content animate-on-scroll aos-fade-left" data-aos-delay="0.2s">
+                        <div class="icon-wrapper"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg></div>
+                        <h3>Essential Skill Development</h3>
+                        <p>Acquire valuable skills crucial for university success and beyond. Our sessions cover time management, effective study techniques, critical thinking, and powerful communication strategies.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-attend" class="content-section">
+            <div class="container">
+                <h2 class="section-title center-aligned animate-on-scroll aos-fade-up">Why Attend Grapevine?</h2>
+                <p class="section-subtitle animate-on-scroll aos-fade-up" data-aos-delay="0.1s">
+                    Grapevine is your unique opportunity to invest in your future, gain clarity, and build a strong foundation for your post-secondary journey.
+                </p>
+                <ul class="why-attend-list">
+                    <li class="animate-on-scroll aos-fade-up"><span><strong>Gain Clarity:</strong> Demystify university options and explore diverse career paths.</span></li>
+                    <li class="animate-on-scroll aos-fade-up"><span><strong>Build Confidence:</strong> Master application strategies and essential academic skills.</span></li>
+                    <li class="animate-on-scroll aos-fade-up"><span><strong>Network:</strong> Connect with university reps, current students, and ambitious peers.</span></li>
+                    <li class="animate-on-scroll aos-fade-up"><span><strong>Get Inspired:</strong> Discover your potential through engaging talks and mentorship.</span></li>
+                    <li class="animate-on-scroll aos-fade-up"><span><strong>Personalized Guidance:</strong> Receive insights tailored to your aspirations.</span></li>
+                    <li class="animate-on-scroll aos-fade-up"><span><strong>Future-Proof Yourself:</strong> Understand emerging trends and prepare for tomorrow's challenges.</span></li>
+                </ul>
+                <div style="text-align:center; margin-top: 60px;" class="animate-on-scroll aos-fade-up" data-aos-delay="0.3s">
+                     <a href="register.html" class="cta-button">Secure Your Spot</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="register" class="content-section">
+            <div class="container">
+                <h2 class="section-title center-aligned animate-on-scroll aos-fade-up">Join the Conversation</h2>
+                <p class="section-subtitle animate-on-scroll aos-fade-up" data-aos-delay="0.1s">
+                    Registration details, dates, and venue information will be announced soon.
+                    Sign up to our mailing list to be the first to know and receive exclusive updates!
+                </p>
+                <form>
+                    <input type="email" placeholder="Enter your email for updates" required class="animate-on-scroll aos-fade-up" data-aos-delay="0.2s">
+                    <button type="submit" class="cta-button animate-on-scroll aos-fade-up" data-aos-delay="0.3s">Notify Me</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 Grapevine Conference. All Rights Reserved.</p>
+            <p class="slogan-footer">Empowering Youths: Your today, tomorrow.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for nav links
+        document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) { targetElement.scrollIntoView({ behavior: 'smooth' }); }
+                document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        const nav = document.querySelector('.main-nav');
+        const navHeight = nav.offsetHeight;
+        const heroSection = document.getElementById('home');
+
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > 50) {
+                nav.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                nav.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+            } else {
+                nav.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                nav.style.boxShadow = 'none';
+            }
+
+            let current = "home"; 
+            const sections = document.querySelectorAll('main section');
+            if (heroSection && scrollTop > (heroSection.offsetTop + heroSection.offsetHeight - navHeight - 200)) {
+                 sections.forEach(section => {
+                    if (pageYOffset >= section.offsetTop - navHeight - 150) { current = section.getAttribute('id'); }
+                });
+            } else if (!heroSection && sections.length > 0) {
+                 sections.forEach(section => {
+                    if (pageYOffset >= section.offsetTop - navHeight - 150) { current = section.getAttribute('id');}
+                });
+            }
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                const linkHref = link.getAttribute('href').substring(1);
+                if ((current === "home" && linkHref === 'about') || linkHref === current) { link.classList.add('active'); }
+            });
+        });
+        window.dispatchEvent(new Event('scroll'));
+
+        // Intersection Observer for Scroll Animations
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 }; // Trigger when 10% is visible
+
+        const observer = new IntersectionObserver((entries, observerInstance) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.dataset.aosDelay || '0s';
+                    entry.target.style.transitionDelay = delay;
+                    entry.target.classList.add('is-visible');
+                    // observerInstance.unobserve(entry.target); // Optional: Unobserve after it has animated once
+                } else {
+                     // Optional: Remove 'is-visible' if you want animations to replay if they scroll out and back in
+                     // entry.target.classList.remove('is-visible');
+                     // entry.target.style.transitionDelay = '0s'; // Reset delay if re-animating
+                }
+            });
+        }, observerOptions);
+
+        animatedElements.forEach(el => {
+            // If element is already a list item from why-attend-list, its delay is set below
+            // For other elements, ensure data-aos-delay is applied if desired or it uses 0s.
+            if (!el.closest('.why-attend-list')) { // or check if el is part of why-attend-list more specifically
+                 observer.observe(el);
+            }
+        });
+
+        // Specific handling for why-attend-list items for staggered delay
+        const whyAttendItems = document.querySelectorAll('.why-attend-list li');
+        whyAttendItems.forEach((item, index) => {
+            // Ensure it has the base animation class if not already applied by '.animate-on-scroll' selector
+            if (!item.classList.contains('animate-on-scroll')) {
+                item.classList.add('animate-on-scroll');
+            }
+            // Add fade-up specifically if not already set (can be redundant but safe)
+            if (!item.classList.contains('aos-fade-up')) {
+                item.classList.add('aos-fade-up');
+            }
+            item.dataset.aosDelay = `${index * 0.1}s`; // Staggered delay
+            observer.observe(item); // Observe each list item
+        });
+
+    </script>
+</body>
+</html>

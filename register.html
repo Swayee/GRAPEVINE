@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Grapevine Conference</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --grape-purple-accent: #5D3A9B;
+            --primary-bg: #FFFFFF;
+            --secondary-bg: #F4F6F8;
+            --text-dark: #1A202C;
+            --text-light: #FFFFFF;
+            --text-medium: #4A5568;
+            --border-light: #E2E8F0;
+            --input-bg: #FFFFFF;
+            --input-border: #CBD5E0;
+            --input-focus-border: var(--grape-purple-accent);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Open Sans', sans-serif; color: var(--text-dark); background-color: var(--secondary-bg); /* Consistent light bg for forms page */ line-height: 1.7; font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: hidden; }
+        .container { width: 90%; max-width: 1140px; margin: 0 auto; }
+
+        /* --- Navigation (Copied from index.html) --- */
+        .main-nav { position: fixed; top: 0; left: 0; width: 100%; background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 20px 0; z-index: 1000; border-bottom: 1px solid var(--border-light); transition: background-color 0.3s ease, box-shadow 0.3s ease; }
+        .main-nav .container { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-family: 'Montserrat', sans-serif; font-size: 1.6em; font-weight: 800; color: var(--text-dark); text-decoration: none; letter-spacing: -0.5px; }
+        .nav-logo span { color: var(--grape-purple-accent); }
+        .nav-links ul { list-style: none; display: flex; }
+        .nav-links ul li { margin-left: 35px; }
+        .nav-links ul li a { font-family: 'Montserrat', sans-serif; text-decoration: none; color: var(--text-medium); font-weight: 600; font-size: 0.9em; padding-bottom: 8px; transition: color 0.3s ease, border-bottom-color 0.3s ease; border-bottom: 3px solid transparent; letter-spacing: 0.5px; }
+        .nav-links ul li a:hover, .nav-links ul li a.active { color: var(--grape-purple-accent); border-bottom-color: var(--grape-purple-accent); }
+
+        /* --- General Section Styling --- */
+        .content-section { padding: 120px 0; margin-top: 80px; /* Account for fixed nav */ }
+        .section-title { font-family: 'Montserrat', sans-serif; font-size: clamp(2.2em, 5vw, 3em); font-weight: 800; color: var(--text-dark); margin-bottom: 25px; text-align: center; }
+        .section-title.center-aligned::after { content: ''; display: block; width: 70px; height: 4px; background-color: var(--grape-purple-accent); margin: 20px auto 0; border-radius: 2px; transition: width 0.3s ease-in-out; }
+        .section-title.center-aligned:hover::after { width: 100px; }
+        .section-subtitle { font-family: 'Open Sans', sans-serif; font-size: 1.15em; color: var(--text-medium); text-align: center; margin-bottom: 50px; max-width: 750px; margin-left: auto; margin-right: auto; line-height: 1.8; }
+
+        /* --- Registration Form Styling --- */
+        .registration-form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: var(--primary-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--input-border);
+            border-radius: 6px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1em;
+            color: var(--text-dark);
+            background-color: var(--input-bg);
+            transition: border-color 0.3s ease;
+        }
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--input-focus-border);
+            box-shadow: 0 0 0 2px rgba(93, 58, 155, 0.2);
+        }
+        .form-checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .form-checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--grape-purple-accent);
+        }
+        .form-checkbox-group label {
+            font-size: 0.9em;
+            color: var(--text-medium);
+            margin-bottom: 0; /* Override general form-label margin */
+        }
+
+        /* --- CTA Button (Copied from index.html) --- */
+        .cta-button { display: inline-block; background-color: var(--grape-purple-accent); color: var(--text-light) !important; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.05em; padding: 16px 40px; text-decoration: none; border-radius: 50px; transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; box-shadow: 0 5px 20px rgba(93, 58, 155, 0.3); text-transform: uppercase; letter-spacing: 1px; border: none; cursor: pointer; }
+        .cta-button:hover { background-color: #4a2f7c; transform: translateY(-4px) scale(1.02); box-shadow: 0 8px 25px rgba(93, 58, 155, 0.4); }
+
+        /* --- Footer (Copied from index.html) --- */
+        footer { background-color: var(--text-dark); color: #A0A0A0; text-align: center; padding: 50px 0; font-size: 0.9em; margin-top: 60px;}
+        footer p { margin-bottom: 8px; }
+        footer .slogan-footer { font-family: 'Montserrat', sans-serif; font-style: italic; opacity: 0.8; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-nav .container { flex-direction: column; align-items: center; }
+            .nav-logo { margin-bottom: 20px; }
+            .nav-links ul { justify-content: center; flex-wrap: wrap; }
+            .nav-links ul li { margin: 0 10px 15px 10px; }
+            .content-section { margin-top: 120px; padding: 80px 0;} /* Adjust for taller nav on mobile */
+            .registration-form-container { padding: 30px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="main-nav">
+        <div class="container">
+            <!-- Link to index.html (or root / if index.html is the default) -->
+            <a href="index.html" class="nav-logo">GRAPE<span>VINE</span></a>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#experience">Experience</a></li>
+                    <li><a href="index.html#why-attend">Why Attend?</a></li>
+                    <li><a href="register.html" class="active">Register</a></li> <!-- 'Register' link active -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="content-section" id="registration-page">
+            <div class="container">
+                <h2 class="section-title center-aligned">Register for Grapevine</h2>
+                <p class="section-subtitle">
+                    Secure your spot today to cultivate your future. We're excited to see you!
+                </p>
+
+                <div class="registration-form-container">
+                    <form action="#" method="POST"> <!-- Action currently does nothing -->
+                        <div class="form-group">
+                            <label for="full-name" class="form-label">Full Name</label>
+                            <input type="text" id="full-name" name="fullName" class="form-input" placeholder="e.g., Jane Doe" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="school" class="form-label">High School Name</label>
+                            <input type="text" id="school" name="school" class="form-input" placeholder="e.g., Central High School" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="grade-level" class="form-label">Current Grade Level</label>
+                            <select id="grade-level" name="gradeLevel" class="form-select" required>
+                                <option value="" disabled selected>Select your grade...</option>
+                                <option value="9">Grade 9</option>
+                                <option value="10">Grade 10</option>
+                                <option value="11">Grade 11</option>
+                                <option value="12">Grade 12</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Workshops of Interest (Optional)</label>
+                            <div>
+                                <input type="checkbox" id="ws-uni-apps" name="workshops[]" value="uni-apps">
+                                <label for="ws-uni-apps" style="font-weight:normal; font-size:0.95em; margin-right: 15px;">University Applications</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="ws-skill-dev" name="workshops[]" value="skill-dev">
+                                <label for="ws-skill-dev" style="font-weight:normal; font-size:0.95em; margin-right: 15px;">Skill Development</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="ws-student-life" name="workshops[]" value="student-life">
+                                <label for="ws-student-life" style="font-weight:normal; font-size:0.95em;">Talking to Uni Students</label>
+                            </div>
+                        </div>
+
+                        <div class="form-checkbox-group">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms">I agree to the (non-existent) terms and conditions.</label>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 30px;">
+                            <button type="submit" class="cta-button">Submit Registration</button>
+                        </div>
+                    </form>
+                </div>
+                 <p style="text-align:center; margin-top: 40px; font-size: 0.9em;">
+                    <a href="index.html" style="color: var(--grape-purple-accent); text-decoration: underline;">« Back to Conference Info</a>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 Grapevine Conference. All Rights Reserved.</p>
+            <p class="slogan-footer">Empowering Youths: Your today, tomorrow.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Basic script for nav active state, assuming this is register.html
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const currentPath = window.location.pathname;
+
+            navLinks.forEach(link => {
+                link.classList.remove('active'); // Remove from all
+                // If link's href matches current page name or a specific identifier
+                if (link.getAttribute('href').includes('register.html')) {
+                    link.classList.add('active');
+                }
+            });
+
+            // If the logo links to index.html ensure other links correctly point there too
+            const logoLink = document.querySelector('.nav-logo');
+            if(logoLink) {
+                 logoLink.setAttribute('href', 'index.html');
+            }
+        });
+    </script>
+</body>
+</html>
